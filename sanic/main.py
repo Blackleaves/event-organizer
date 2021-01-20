@@ -22,7 +22,7 @@ class User(db.Model):
     name = db.Column(db.String(), default='John Doe')
     email = db.Column(db.Unicode())
     description = db.Column(db.String())
-    role = db.Column(db.Integer())
+    role = db.Column(db.Integer(), db.ForeignKey('roles.id'))
 
 class Role(db.Model):
     __tablename__ = 'roles'
@@ -39,7 +39,7 @@ class Event(db.Model):
     title = db.Column(db.String())
     description = db.Column(db.String())
     code = db.Column(db.Unicode())
-    creator_id = db.Column(db.Integer())
+    creator_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
 
 class Stage(db.Model):
     __tablename__ = 'stages'
@@ -47,8 +47,8 @@ class Stage(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String())
     description = db.Column(db.String())
-    event_id = db.Column(db.Integer())
-    responsible = db.Column(db.Integer())
+    event_id = db.Column(db.Integer(), db.ForeignKey('events.id'))
+    responsible = db.Column(db.Integer(), db.ForeignKey('users.id'))
 
 class Perfomance(db.Model):
     __tablename__ = 'perfomances'
@@ -59,7 +59,8 @@ class Perfomance(db.Model):
     code = db.Column(db.Unicode())
     order = db.Column(db.Integer())
     duration = db.Column(db.Interval())
-    stage = db.Column(db.Integer())
+    person = db.Column(db.Integer(), db.ForeignKey('users.id'))
+    stage = db.Column(db.Integer(), db.ForeignKey('stages.id'))
 
 class Material(db.Model):
     __tablename__ = 'materials'
@@ -68,7 +69,7 @@ class Material(db.Model):
     title = db.Column(db.String())
     description = db.Column(db.String())
     storage_url = db.Column(db.Unicode())
-    perfomance = db.Column(db.Integer())
+    perfomance = db.Column(db.Integer(), db.ForeignKey('perfomances.id'))
 
 # -----------------------------------------
 
