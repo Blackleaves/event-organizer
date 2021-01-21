@@ -1,18 +1,18 @@
 from sanic import Sanic
+from sanic.exceptions import abort
 from sanic.response import json
-
-from gino import Gino
+from gino.ext.sanic import Gino
 
 import asyncio
 
-app = Sanic()
+app = Sanic(name='event_organizer')
 app.config.DB_HOST = 'localhost'
 app.config.DB_DATABASE = 'gino'
 app.config['DB_USER'] = 'postgres'
+app.config['DB_PASSWORD'] = 'somenewpassword'
 db = Gino()
-# db.init_app(app)
+db.init_app(app)
 
-# -----------------------------------------
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -24,6 +24,7 @@ class User(db.Model):
     description = db.Column(db.String())
     role = db.Column(db.Integer(), db.ForeignKey('roles.id'))
 
+
 class Role(db.Model):
     __tablename__ = 'roles'
 
@@ -31,6 +32,7 @@ class Role(db.Model):
     title = db.Column(db.String())
     description = db.Column(db.String())
     code = db.Column(db.Unicode())
+
 
 class Event(db.Model):
     __tablename__ = 'events'
@@ -41,6 +43,7 @@ class Event(db.Model):
     code = db.Column(db.Unicode())
     creator_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
 
+
 class Stage(db.Model):
     __tablename__ = 'stages'
 
@@ -49,6 +52,7 @@ class Stage(db.Model):
     description = db.Column(db.String())
     event_id = db.Column(db.Integer(), db.ForeignKey('events.id'))
     responsible = db.Column(db.Integer(), db.ForeignKey('users.id'))
+
 
 class Perfomance(db.Model):
     __tablename__ = 'perfomances'
@@ -62,6 +66,7 @@ class Perfomance(db.Model):
     person = db.Column(db.Integer(), db.ForeignKey('users.id'))
     stage = db.Column(db.Integer(), db.ForeignKey('stages.id'))
 
+
 class Material(db.Model):
     __tablename__ = 'materials'
 
@@ -71,23 +76,23 @@ class Material(db.Model):
     storage_url = db.Column(db.Unicode())
     perfomance = db.Column(db.Integer(), db.ForeignKey('perfomances.id'))
 
-# -----------------------------------------
 
 @app.route("/")
 async def test(request):
-  return json({"hello": "world"})
+    return json({"hello": "world"})
+
 
 @app.route("/healthcheck")
 async def healthcheck(request):
-	return json("healthcheck")
+    return json("healthcheck")
 
-# -----------------------------------------
 
 async def main():
-    await db.set_bind('postgresql://localhost/gino')
+    await db.set_bind('postgresql://postgres:somenewpassword@localhost/gino')
+
 asyncio.get_event_loop().run_until_complete(main())
 
-loop.run_until_complete(db.gino.create_all())
+asyncio.get_event_loop().run_until_complete(db.gino.create_all())
 
 if __name__ == "__main__":
-  app.run(host="0.0.0.0", port=8000)
+    app.run(host="0.0.0.0", port=8000)
