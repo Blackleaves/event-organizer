@@ -13,11 +13,9 @@ app.config['DB_PASSWORD'] = 'thisisnewsecurepassword'
 db = Gino()
 db.init_app(app)
 loop = asyncio.get_event_loop()
-loop.run_until_complete(db.set_bind('postgresql://vihovin:somenewpassword@localhost/gino'))
-from models.user import User
-from models.role import Role
-from models.event import Event
-from models.stage import Stage
-from models.perfomance import Perfomance
-from models.materials import Material
+loop.run_until_complete(db.set_bind('postgresql://postgres:thisisnewsecurepassword@localhost/gino'))
+from models import User, Role, Event, Stage, Performance, Material
 loop.run_until_complete(db.gino.create_all())
+
+
+app.static('/static', './static')
