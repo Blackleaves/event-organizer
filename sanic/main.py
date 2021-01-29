@@ -23,6 +23,4 @@ async def before_server_start(app, loop):
 if __name__ == "__main__":
     # app.static('/', './')  <- this one caused the problem
     parsed_args = parser.parse_args()
-    # app.run(parsed_args)
-    print(parsed_args)
-    app.run(host="0.0.0.0", port=8000)
+    app.run(host=parsed_args.host, port=parsed_args.port)

@@ -17,7 +17,7 @@ class RolesView(HTTPMethodView):
         return text('I am post method for Roles')
 
 
-class RoleByIdView(HTTPMethodView):
+class RolesDetailView(HTTPMethodView):
 
     def get(self, request, role_id):
         return text('I am get method for Role by id {}'.format(role_id))
@@ -41,7 +41,7 @@ class UsersView(HTTPMethodView):
         return text('I am post method for Users')
 
 
-class UserByIdView(HTTPMethodView):
+class UsersDetailView(HTTPMethodView):
 
     def get(self, request, user_id):
         return text('I am get method for User by id {}'.format(user_id))
@@ -65,7 +65,7 @@ class EventsView(HTTPMethodView):
         return text('I am post method for Events')
 
 
-class EventByIdView(HTTPMethodView):
+class EventsDetailView(HTTPMethodView):
 
     def get(self, request, event_id):
         return text('I am get method for Event by id {}'.format(event_id))
@@ -89,7 +89,7 @@ class StagesView(HTTPMethodView):
         return text('I am post method for Stages')
 
 
-class StageByIdView(HTTPMethodView):
+class StagesDetailView(HTTPMethodView):
 
     def get(self, request, stage_id):
         return text('I am get method for Stage by id {}'.format(stage_id))
@@ -113,7 +113,7 @@ class PerformancesView(HTTPMethodView):
         return text('I am post method for Performances')
 
 
-class PerformanceByIdView(HTTPMethodView):
+class PerformancesDetailView(HTTPMethodView):
 
     def get(self, request, performance_id):
         return text('I am get method for Performance by id {}'.format(performance_id))
@@ -137,7 +137,7 @@ class MaterialsView(HTTPMethodView):
         return text('I am post method for Materials')
 
 
-class MaterialByIdView(HTTPMethodView):
+class MaterialsDetailView(HTTPMethodView):
 
     def get(self, request, material_id):
         return text('I am get method for Material by id {}'.format(material_id))
