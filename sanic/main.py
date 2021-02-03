@@ -15,8 +15,8 @@ parser.add_argument("--port", required=True, help="DB Host Port")
 @app.listener('before_server_start')
 async def before_server_start(app, loop):
     db.init_app(app)
-    await db.set_bind('postgresql://vihovin:thisissomenewpass@localhost/gino')
-    await db.gino.create_all()
+    # await db.set_bind('postgresql://vihovin:thisissomenewpass@localhost/gino')
+    # await db.gino.create_all()
     app.blueprint(api)
 
 

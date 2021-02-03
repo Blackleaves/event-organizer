@@ -1,0 +1,30 @@
+version: "3"
+
+volumes:
+  postgres_volume:
+
+services:
+  event-organizer:
+    build: ./
+    environment:
+      - TZ=Europe/Kiev
+      - POSTGRES_DB_ADDR=db
+      - POSTGRES_DB_PORT=5432
+      - DB_HOST=localhost
+      - DB_USER=postgres
+      - DB_PASSWORD=thisisnewsecurepassword
+      - DB_DATABASE=gino
+      - DB_PORT=5432
+      - TABLE_USER=vihovin
+      - TABLE_PASSWORD=thisissomenewpass
+    ports:
+      - 8080:8080
+    depends_on:
+      - "db"
+
+  db:
+    image: library/postgres:latest
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=thisisnewsecurepassword
