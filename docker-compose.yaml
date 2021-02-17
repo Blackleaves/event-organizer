@@ -25,11 +25,12 @@ services:
     links:
       - "db"
     ports:
-      - 127.0.0.1:8000:8000
+      - 0.0.0.0:8000:8000
 
   db:
     image: library/postgres
     volumes:
       - postgres_volume:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       - POSTGRES_PASSWORD=thisisnewsecurepassword

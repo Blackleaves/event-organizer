@@ -13,4 +13,4 @@ EXPOSE 8000
 
 ENV MYAPP_SETTINGS /usr/src/app/sanic/config.py
 
-CMD ["python","sanic/main.py","--host=127.0.0.1","--port=8000"]
+CMD ["python","sanic/main.py","--host=0.0.0.0","--port=8000"]

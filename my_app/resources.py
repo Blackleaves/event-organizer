@@ -1,6 +1,9 @@
 from sanic.response import text, json
 from sanic.views import HTTPMethodView
 
+from app import db
+from models import User, Role, Event, Stage, Performance, Material
+
 
 class MainPageView(HTTPMethodView):
 
@@ -11,7 +14,8 @@ class MainPageView(HTTPMethodView):
 class RolesView(HTTPMethodView):
 
     def get(self, request):
-        return text('I am get method for Roles')
+        all_roles = await Role.get(1)
+        return text(all_roles)
 
     async def post(self, request):
         return text('I am post method for Roles')
@@ -34,10 +38,20 @@ class RolesDetailView(HTTPMethodView):
 
 class UsersView(HTTPMethodView):
 
-    def get(self, request):
-        return text('I am get method for Users')
+    async def get(self, request):
+        all_users = await User.get(1)
+        return text(all_users)
 
     async def post(self, request):
+        nickname = request.json.get("nickname", None)
+        name = request.json.get("name", None)
+        email = request.json.get("email", None)
+        # description = request.json.get("description", None)
+        # role = request.json.get("role", None)
+        if not (nickname and email):
+            return text('There should be nickname and email at least')
+        else:
+            user = await User.create(nickname=nickname, name=name, email=email)
         return text('I am post method for Users')
 
 
@@ -59,7 +73,8 @@ class UsersDetailView(HTTPMethodView):
 class EventsView(HTTPMethodView):
 
     def get(self, request):
-        return text('I am get method for Events')
+        all_events = await Event.get(1)
+        return text(all_events)
 
     async def post(self, request):
         return text('I am post method for Events')
@@ -83,7 +98,8 @@ class EventsDetailView(HTTPMethodView):
 class StagesView(HTTPMethodView):
 
     def get(self, request):
-        return text('I am get method for Stages')
+        all_stages = await Stage.get(1)
+        return text(all_stages)
 
     async def post(self, request):
         return text('I am post method for Stages')
@@ -107,7 +123,8 @@ class StagesDetailView(HTTPMethodView):
 class PerformancesView(HTTPMethodView):
 
     def get(self, request):
-        return text('I am get method for Performances')
+        all_performances = await Performance.get(1)
+        return text(all_performances)
 
     async def post(self, request):
         return text('I am post method for Performances')
@@ -131,7 +148,8 @@ class PerformancesDetailView(HTTPMethodView):
 class MaterialsView(HTTPMethodView):
 
     def get(self, request):
-        return text('I am get method for Materials')
+        all_materials = await Material.get(1)
+        return text(all_materials)
 
     async def post(self, request):
         return text('I am post method for Materials')

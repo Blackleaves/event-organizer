@@ -6,7 +6,7 @@ from app import app, db
 from models import User, Role, Event, Stage, Performance, Material
 
 # TO RUN USE THIS
-# MYAPP_SETTINGS=~/Mentoree/event-organizer/sanic/config.py python sanic/main.py --host="0.0.0.0" --port=8080
+# MYAPP_SETTINGS=~/Mentoree/event-organizer/my_app/config.py python my_app/main.py --host="0.0.0.0" --port=8080
 
 parser = argparse.ArgumentParser("Parse arguments")
 parser.add_argument("--host", type=str, required=True, help="DB Host")

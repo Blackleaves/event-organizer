@@ -3,15 +3,12 @@ from datetime import datetime
 from app import db
 
 
-class BaseModel(db.Model):
+class Role(db.Model):
+    __tablename__ = 'roles'
+
     id = db.Column(db.Integer(), primary_key=True)
     created_at = db.Column(db.DateTime(), default=datetime.now)
     last_modified = db.Column(db.DateTime())
-
-
-class Role(BaseModel):
-    __tablename__ = 'roles'
-
     title = db.Column(db.String())
     description = db.Column(db.String())
     code = db.Column(db.Unicode())
@@ -20,9 +17,12 @@ class Role(BaseModel):
         return f'{self.title} - {self.description}'
 
 
-class User(BaseModel):
+class User(db.Model):
     __tablename__ = 'users'
 
+    id = db.Column(db.Integer(), primary_key=True)
+    created_at = db.Column(db.DateTime(), default=datetime.now)
+    last_modified = db.Column(db.DateTime())
     nickname = db.Column(db.String(), default='noname')
     name = db.Column(db.String(), default='John Doe')
     email = db.Column(db.Unicode())
@@ -33,9 +33,12 @@ class User(BaseModel):
         return f'{self.name} - {self.role}'
 
 
-class Event(BaseModel):
+class Event(db.Model):
     __tablename__ = 'events'
 
+    id = db.Column(db.Integer(), primary_key=True)
+    created_at = db.Column(db.DateTime(), default=datetime.now)
+    last_modified = db.Column(db.DateTime())
     title = db.Column(db.String())
     description = db.Column(db.String())
     code = db.Column(db.Unicode())
@@ -45,9 +48,12 @@ class Event(BaseModel):
         return f'{self.title} - {self.description}'
 
 
-class Stage(BaseModel):
+class Stage(db.Model):
     __tablename__ = 'stages'
 
+    id = db.Column(db.Integer(), primary_key=True)
+    created_at = db.Column(db.DateTime(), default=datetime.now)
+    last_modified = db.Column(db.DateTime())
     title = db.Column(db.String())
     description = db.Column(db.String())
     event_id = db.Column(db.Integer(), db.ForeignKey('events.id'))
@@ -57,9 +63,12 @@ class Stage(BaseModel):
         return f'{self.title} - {self.description} - Event {self.event_id}'
 
 
-class Performance(BaseModel):
+class Performance(db.Model):
     __tablename__ = 'performances'
 
+    id = db.Column(db.Integer(), primary_key=True)
+    created_at = db.Column(db.DateTime(), default=datetime.now)
+    last_modified = db.Column(db.DateTime())
     title = db.Column(db.String())
     description = db.Column(db.String())
     code = db.Column(db.Unicode())
@@ -72,9 +81,12 @@ class Performance(BaseModel):
         return f'{self.title} - {self.description} - Person {self.person} - Stage {self.stage}'
 
 
-class Material(BaseModel):
+class Material(db.Model):
     __tablename__ = 'materials'
 
+    id = db.Column(db.Integer(), primary_key=True)
+    created_at = db.Column(db.DateTime(), default=datetime.now)
+    last_modified = db.Column(db.DateTime())
     title = db.Column(db.String())
     description = db.Column(db.String())
     storage_url = db.Column(db.Unicode())
